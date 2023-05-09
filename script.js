@@ -32,4 +32,18 @@ const quizData = [
     }
   ];
 
-  
+    // Variables used that can not be changed 
+    const startBtn = document.getElementById("start-button");
+    const quiz = document.getElementById("quiz");
+    const questionEl = document.getElementById("question");
+    const choicesEl = document.getElementById("choices");
+    const submitBtn = document.getElementById("submit-button");
+
+//start function
+    function startQuiz() {
+      startBtn.style.display = "none";
+      quiz.style.display = "block";
+    }
+
+    //call the button
+    startBtn.addEventListener("click", startQuiz);
