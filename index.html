@@ -8,14 +8,16 @@
     <h1>Test yourself with some code!</h1>
     <p>Try your coding knowledge with this short quiz</p>
     <button id="start-button">Start Quiz</button>
-      <h2>Question 1:</h2>
+     <div id ="quiz" style='display: none;'>
+    <h2>Question 1:</h2>
       <p id="question">
-      <ul id="choices">
-      </ul>
+      <ul id="choices"></ul>
+        <p>Time remaining: <span id="time">60</span>seconds</p>
     </div>
-      <h2>Game Over!</h2>
-      <p>Your score
-      <p>Enter your initials
+    <div id="game-over" style="display: none;">
+      <h2>Game Over</h2>
+      <p>Your score: <span id="score"></span></p>
+      <p>Enter your initials: <input type="text" id="initials"></p>
       <button id="submit-button">Submit</button>
     </div>
     <script src="script.js"></script>
