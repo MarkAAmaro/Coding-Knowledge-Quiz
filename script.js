@@ -61,7 +61,7 @@ function showQuestion() {
   for (let i = 0; i < currentQuiz.choices.length; i++) {
     const choice = currentQuiz.choices[i];
     const btn = document.createElement("button");
-    btn.textContent = choice;
+    btn.textContent = (i + 1) + ". " + choice;
     btn.addEventListener("click", function() {
       if (i === currentQuiz.answer) {
         score++;
@@ -94,5 +94,72 @@ function endQuiz() {
   scoreEl.textContent = score;
 }
 
+
     //call the button
     startBtn.addEventListener("click", startQuiz);
+
+  
+const highscoresLink = document.getElementById("highscores-link");
+
+
+function saveScore() {
+    const initials = initialsEl.value.trim();
+
+    if (initials) {
+       
+        const highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+
+        
+        highscores.push({ initials, score });
+
+        localStorage.setItem("highscores", JSON.stringify(highscores));
+
+      
+        displayHighscores();
+    } else {
+        alert("Please enter your initials!");
+    }
+}
+
+function displayHighscores() {
+  gameOver.style.display = "none";
+
+ 
+  const existingList = document.getElementById("highscores-list");
+  if (existingList) {
+      existingList.remove();
+  }
+
+  const highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+  const scoresList = document.createElement("ul");
+  scoresList.id = "highscores-list";  
+
+  if (highscores.length === 0) {
+      const listItem = document.createElement("li");
+      listItem.textContent = "No highscores yet!";
+      scoresList.appendChild(listItem);
+  } else {
+      for (const scoreData of highscores) {
+          const listItem = document.createElement("li");
+          listItem.textContent = `${scoreData.initials}: ${scoreData.score}`;
+          scoresList.appendChild(listItem);
+      }
+  }
+
+  document.body.appendChild(scoresList);
+}
+
+
+submitBtn.addEventListener("click", saveScore);
+
+
+highscoresLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    displayHighscores();
+});
+const clearHighscoresBtn = document.getElementById("clear-highscores");
+
+clearHighscoresBtn.addEventListener("click", function() {
+    localStorage.removeItem("highscores"); 
+    displayHighscores();  
+});
