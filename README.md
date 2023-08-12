@@ -7,4 +7,4 @@
  ### Select the appropriate answers before the time runs out!
  ![img](./Assets/questions.png)
  ### Engrave you initials with the legends by having the highest score!
- ![img](./Assets/Open%20page.png)
+ ![img](./Assets/score%20sheet.png)
