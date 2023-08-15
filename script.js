@@ -58,23 +58,38 @@ function showQuestion() {
   const currentQuiz = quizData[currentQuestion];
   questionEl.textContent = currentQuiz.question;
   choicesEl.innerHTML = "";
+
   for (let i = 0; i < currentQuiz.choices.length; i++) {
-    const choice = currentQuiz.choices[i];
-    const btn = document.createElement("button");
-    btn.textContent = (i + 1) + ". " + choice;
-    btn.addEventListener("click", function() {
-      if (i === currentQuiz.answer) {
-        score++;
-      }
-      if (currentQuestion < quizData.length - 1) {
-        currentQuestion++;
-        showQuestion();
-      } else {
-        endQuiz();
-      }
-    });
-    choicesEl.appendChild(btn); //appended button to allow choices to continue when answer selected
+      const choice = currentQuiz.choices[i];
+      const btn = document.createElement("button");
+      btn.textContent = (i + 1) + ". " + choice;
+
+      // Set attribute for each button
+      btn.setAttribute("data-choice-index", i);
+
+      btn.addEventListener("click", function(event) {
+          const chosenIndex = parseInt(event.target.getAttribute("data-choice-index"));
+
+          
+          if (chosenIndex === currentQuiz.answer) {
+              score++;
+          } else {
+              // Subtract 10 seconds for incorrect answers
+              timeLeft -= 10;
+              if (timeLeft < 0) timeLeft = 0; 
+          }
+
+          if (currentQuestion < quizData.length - 1) {
+              currentQuestion++;
+              showQuestion();
+          } else {
+              endQuiz();
+          }
+      });
+
+      choicesEl.appendChild(btn);
   }
+
 }
       function startTimer() {
         timer = setInterval(function() {
